@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>TOP Web Development 101 - Google Searchpage</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: arial,sans-serif;
+            color: #222;
+        }
+        .container {
+            display: grid;
+            min-width: 400px;
+            width: 100vl;
+            height: 100vh;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas: "header" "main" "footer";
+            overflow: hidden;
+        }
+        header {
+            /* background: LightSkyBlue; */
+            grid-area: header;
+            /* text-align: right; */
+        }
+        header nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            font-size: 13px;
+            padding-right: 30px;
+            /* line-height: 24px; */
+            margin-top: 16px;
+        }
+        header nav a {
+            display: inline-block;
+            margin-left: 15px;
+            color: rgba(0,0,0,0.87);
+            padding: 0;
+        }
+        .app-icon {
+            margin: 5px;
+            padding: 0;
+            height: 19px;
+            width: 19px;
+            background: none;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+        }
+        .dot {
+            background: gray;
+            width: 5px;
+            height: 5px;
+        }
+        a:hover .dot {
+            background: rgb(39, 39, 39);
+        }
+        .sign-in {
+            display: inline-block;
+            border: 1px solid #4285f4;
+            font-weight: bold;
+            outline: none;
+            color: #fff;
+            background: #4285f4;
+            background: -webkit-linear-gradient(top,#4387fd,#4683ea);
+            line-height: 28px;
+            padding: 0 12px;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+            cursor: default;
+            text-decoration: none;
+        }
+        .sign-in:hover {
+            text-decoration: none;
+            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.15);
+            box-shadow: 0 1px 0 rgba(0,0,0,.15);
+        }
+        main {
+            background: white;
+            grid-area: main;
+            text-align: center;
+            justify-self: center;
+            align-self: start;
+            width: 100%;
+            margin-top: 43px;
+            transition: margin-top 0.4s ease;
+            /* min-width: 400px;
+            max-width: 584px; */
+        }
+        @media only screen and (max-height: 768px) {
+            main {
+                margin-top: 0;
+            }
+        }
+        main form {
+            width: auto;
+            margin: 23px 32px 0 32px;
+        }
+        .search-form {
+            /* width: 100%; */
+            min-width: 400px;
+            max-width: 484px;
+            background: wheat;
+            width: auto;
+            margin: 0 auto;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #dfe1e5;
+            box-shadow: none;
+            border-radius: 24px;
+            /* z-index: 3; */
+            height: 44px;
+        }
+        .search-form:hover {
+            box-shadow: 0 1px 6px rgba(32,33,36,.28);
+            border-color: rgba(223,225,229,0);
+        }
+        .search-form input {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            width: 100%;
+            font: 16px arial,sans-serif;
+            line-height: 34px;
+        }
+        /* .search-form input:focus {
+            border: 0;
+        } */
+        .search-form .voice {
+            margin: 0 17px 0 15px;
+        }
+        .search-form .glass {
+            margin: 4px 13px 0 13px;
+            color: #9aa0a6;
+            height: 26px;
+            width: 26px;
+            display: inline-block;
+            fill: currentColor;
+            /* line-height: 24px; */
+            position: relative;
+        }
+        .search-form .voice svg {
+            height: 24px;
+            width: 24px;
+            vertical-align: middle;
+        }
+        .search-buttons {
+            margin-top: 29px;
+        }
+        .search-buttons input[type="submit"] {
+            background-image: -webkit-linear-gradient(top,#f5f5f5,#f1f1f1);
+            background-color: #f2f2f2;
+            border: 1px solid #f2f2f2;
+            border-radius: 4px;
+            color: #5F6368;
+            font-family: arial,sans-serif;
+            font-size: 14px;
+            margin: 0 4px;
+            padding: 0 16px;
+            line-height: 27px;
+            height: 36px;
+            min-width: 54px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+        }
+        .search-buttons input[type="submit"]:hover {
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            background-image: -webkit-linear-gradient(top,#f8f8f8,#f1f1f1);
+            background-color: #f8f8f8;
+            border: 1px solid #c6c6c6;
+            color: #222;
+        }
+        .other-lang {
+            font-size: small;
+            margin-top: 30px;
+        }
+        a {
+            text-decoration: none;
+        }
+        a:hover, a:active {
+            text-decoration: underline;
+        }
+        .logo img {
+            padding-top: 109px;
+            height: 92px;
+            width: auto;
+        }
+        @media only screen and (max-height: 536px) {
+            .logo img {
+                padding-top: 10px !important;
+                height: 72px;
+                width: auto;
+            }
+        }
+        footer {
+            grid-area: footer;
+            line-height: 40px;
+            background: #f2f2f2;
+        }
+        .footer-1 {
+            font-size: 15px;
+            padding-left: 30px;
+            color: rgba(0,0,0,.54);
+            border-top: 1px solid #e4e4e4;
+        }
+        .footer-2 {
+            font-size: 14px;
+            display: grid;
+            border-top: 1px solid #e4e4e4;
+            padding-left: 3px;
+        }
+        @media only screen and (min-width: 805px) {
+            .footer-2 {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer-2-1 {
+                text-align: left;
+            }
+            .footer-2-2 {
+                text-align: right;
+                margin-right: 30px;
+            }
+        }
+        @media only screen and (max-width: 805px) {
+            .footer-2 {
+                grid-template-rows: 1fr 1fr;
+            }
+            .footer-2-1, .footer-2-2 {
+                text-align: center;
+            }
+            .footer-2-1 {
+                order: 2;
+            }
+            .footer-2-2 {
+                order: 1;
+            }
+        }
+        footer a {
+            padding-left: 27px;
+            margin: 0 !important;
+            color: #5f6368;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        
+    <header>
+        <nav>
+            <a href="#">Gmail</a> 
+            <a href="#">Images</a> 
+            <a href="#" class="apps">
+                <div class="app-icon">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </a> 
+            <a href="#" class="sign-in">Sign in</a>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="logo">
+            <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="">
+        </div>
+
+        <form action="#">
+            <div class="search-form">
+                <span class="glass">
+                    <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+                </span>
+                <input type="text" name="s" title="s" id="search" autocomplete="off" autofocus>
+                <span class="voice">
+                    <svg focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 15c1.66 0 3-1.31 3-2.97v-7.02c0-1.66-1.34-3.01-3-3.01s-3 1.34-3 3.01v7.02c0 1.66 1.34 2.97 3 2.97z" fill="#4285f4"></path><path d="m11 18.08h2v3.92h-2z" fill="#34a853"></path><path d="m7.05 16.87c-1.27-1.33-2.05-2.83-2.05-4.87h2c0 1.45 0.56 2.42 1.47 3.38v0.32l-1.15 1.18z" fill="#f4b400"></path><path d="m12 16.93a4.97 5.25 0 0 1 -3.54 -1.55l-1.41 1.49c1.26 1.34 3.02 2.13 4.95 2.13 3.87 0 6.99-2.92 6.99-7h-1.99c0 2.92-2.24 4.93-5 4.93z" fill="#ea4335"></path></svg>
+                </span>
+            </div>
+            <div class="search-buttons">
+                <input type="submit" value="Google Search">
+                <input type="submit" value="I'm Feeling Lucky">
+            </div>
+            <div class="other-lang">
+                Google offered in: <a href="#">another language</a>
+            </div>
+        </form>
+
+    </main>
+
+    <footer>
+        <div class="footer-1">
+            Sweden
+        </div>
+        <div class="footer-2">
+            <span class="footer-2-1">
+                <a class="" href="#" rel="">Advertising</a><a class="" href="#" rel="">Business</a><a class="" href="#" rel="">About</a><a class="" href="#">How Search works</a>
+            </span>
+            <span class="footer-2-2">
+                <a class="" href="#" rel="">Privacy</a><a class="" href="#" rel="">Terms</a><a class="" href="#" rel="">Settings</a>
+            </span>
+        </div>
+    </footer>
+
+</div>
+
+</body>
+</html>
